@@ -76,7 +76,7 @@ def test_update_picture_by_id(client, picture):
 def test_delete_picture_by_id(client):
     res = client.get("/count")
     assert res.json['length'] == 11
-    res = client.delete("/picture/1")
+    res = client.delete("/picture/2")
     assert res.status_code == 204
     res = client.get("/count")
     assert res.json['length'] == 10
