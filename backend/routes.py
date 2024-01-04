@@ -59,21 +59,30 @@ def create_picture():
     new_picture = request.json   
     for picture in data:       
         if new_picture["id"] == picture['id']:          
-            return jsonify({"Message": "picture with id {picture['id']} already present"}), 302    
-    data.append(picture)    
-    return picture, 201 
+            return jsonify({"Message": f"picture with id {picture['id']} already present"}), 302    
+    data.append(new_picture)    
+    return new_picture, 201 
 ######################################################################
 # UPDATE A PICTURE
-######################################################################
+###########!!!!!!!!!!!!!!###########################################################
 
 
 @app.route("/picture/<int:id>", methods=["PUT"])
 def update_picture(id):
-    pass
+    edit_picture = request.json
+    for picture in data:
+        if picture['id'] == id:
+            data[0] = edit_picture
+            return picture, 201
+    return jsonify({"message": "picture"}), 404
 
 ######################################################################
 # DELETE A PICTURE
 ######################################################################
 @app.route("/picture/<int:id>", methods=["DELETE"])
 def delete_picture(id):
-    pass
+    for picture in data:
+        if picture['id'] == id:
+            data.remove(picture)
+            return "", 204
+    return {"message": "picture not found"}, 404

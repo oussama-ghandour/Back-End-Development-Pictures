@@ -59,29 +59,29 @@ def test_post_picture_duplicate(picture, client):
     assert res.status_code == 302
     assert res.json['Message'] == f"picture with id {picture['id']} already present"
 
-# def test_update_picture_by_id(client, picture):
-#     id = '2'
-#     res = client.get(f'/picture/{id}')
-#     res_picture = res.json
-#     assert res_picture['id'] == 2
-#     res_state = res_picture["event_state"]
-#     new_state = "*" + res_state
-#     res_picture["event_state"] = new_state
-#     res = client.put(f'/picture/{id}', data=json.dumps(res_picture),
-#                      content_type="application/json")
-#     res.status_code == 200
-#     res = client.get(f'/picture/{id}')
-#     assert res.json['event_state'] == new_state
+def test_update_picture_by_id(client, picture):
+    id = '2'
+    res = client.get(f'/picture/{id}')
+    res_picture = res.json
+    assert res_picture['id'] == 2
+    res_state = res_picture["event_state"]
+    new_state = "*" + res_state
+    res_picture["event_state"] = new_state
+    res = client.put(f'/picture/{id}', data=json.dumps(res_picture),
+                     content_type="application/json")
+    res.status_code == 200
+    res = client.get(f'/picture/{id}')
+    assert res.json['event_state'] == new_state
 
-# def test_delete_picture_by_id(client):
-#     res = client.get("/count")
-#     assert res.json['length'] == 11
-#     res = client.delete("/picture/1")
-#     assert res.status_code == 204
-#     res = client.get("/count")
-#     assert res.json['length'] == 10
-#     res = client.delete("/picture/100")
-#     assert res.status_code == 404
+def test_delete_picture_by_id(client):
+    res = client.get("/count")
+    assert res.json['length'] == 11
+    res = client.delete("/picture/2")
+    assert res.status_code == 204
+    res = client.get("/count")
+    assert res.json['length'] == 10
+    res = client.delete("/picture/100")
+    assert res.status_code == 404
 
 
 
